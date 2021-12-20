@@ -31,7 +31,7 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         userId: user._id,
                         token: jwt.sign({ userId: user._id },
-                            'PIIQUANTE_JETON_SECRET_2021_OPENCLASSROOMS', { expiresIn: '24h' }
+                            process.env.TOKEN_SECRET, { expiresIn: '24h' }
                         )
                     });
                 })

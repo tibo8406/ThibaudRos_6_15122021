@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 
-mongoose.connect('mongodb+srv://tibo8406:55948484Tt&@cluster0.whmlg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
