@@ -19,23 +19,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-app.use('/api/sauces', (req, res, next) => {
-    const sauce = {
-        userId: 'indentifiant mongodb',
-        name: 'nom de la sauce',
-        manufacturer: 'Mon premier fabricant de la sauce',
-        description: 'Les infos de mon premier sauce',
-        mainPepper: 'piment principal',
-        imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-        heat: 10,
-        likes: 4900,
-        dislikes: 2,
-        usersLiked: ["<userId>"],
-        usersDisliked: ["<userId>"],
-    };
-    res.status(200).json(sauce);
-});
 
 app.use('/api/auth', userRoutes);
-//app.use('/api/sauces', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 module.exports = app;
