@@ -1,7 +1,12 @@
 const express = require('express'); //creation app express
+const multer = require('multer');
 const mongoose = require('mongoose');
+const { isLoggedIn } = require('./middlewares/isLoggedIn');
+const path = require('path');
+
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
+
 
 mongoose.connect(process.env.DB_URL, {
         useNewUrlParser: true,
@@ -12,6 +17,7 @@ mongoose.connect(process.env.DB_URL, {
 
 const app = express();
 app.use(express.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

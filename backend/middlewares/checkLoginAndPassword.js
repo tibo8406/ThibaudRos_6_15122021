@@ -1,5 +1,6 @@
 exports.checkLoginAndPassword = (req, res, next) => {
     //checck mail et password
+    //control supplementaire possible
     if (req.body.email && req.body.password) {
         next();
     } else {
