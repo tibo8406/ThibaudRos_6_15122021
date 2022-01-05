@@ -31,7 +31,6 @@ exports.isOwner = (req, res, next) => {
             }
             req.sauce = sauce;
             next();
-
         }
     );
 

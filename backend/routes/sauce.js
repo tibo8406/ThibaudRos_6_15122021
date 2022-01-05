@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { isLoggedIn, isOwner } = require('../middlewares/auth');
+const { isOwner } = require('../middlewares/auth');
 const sauceCtrl = require('../controllers/sauce');
 const multer = require('../middlewares/multer-config');
 
@@ -9,7 +9,7 @@ router.post('/', multer, sauceCtrl.createSauce);
 router.get('/:id', sauceCtrl.showOneSauce);
 router.put('/:id', isOwner, multer, sauceCtrl.modifySauce);
 router.delete('/:id', isOwner, sauceCtrl.deleteOneSauce);
-//router.post('/:id/like')
+router.post('/:id/like', sauceCtrl.likeSauce);
 
 
 module.exports = router;
