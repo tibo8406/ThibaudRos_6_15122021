@@ -1,4 +1,7 @@
+const { getDefaultSettings } = require('http2');
 const multer = require('multer');
+const path = require('path');
+
 
 const MIME_TYPES = {
     'image/jpg': 'jpg',
@@ -11,9 +14,14 @@ const storage = multer.diskStorage({
         callback(null, 'images')
     },
     filename: (req, file, callback) => {
-        const name = file.originalname.split(' ').join('_');
+        const originalNameWithoutSpaces = file.originalname.split(' ').join('_');
+        const filename = path.parse(originalNameWithoutSpaces).name;
         const extension = MIME_TYPES[file.mimetype];
-        callback(null, name + Date.now() + '.' + extension)
+        let date = new Date();
+        console.log(date);
+        ///callback(null, filename + '_' + Date.now() + '.' + extension)
+        callback(null, date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + date.getMinutes() + date.getSeconds() + '_' + filename + '.' + extension)
+
     }
 });
 

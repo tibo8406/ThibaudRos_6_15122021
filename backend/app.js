@@ -1,7 +1,6 @@
 const express = require('express'); //creation app express
-const multer = require('multer');
 const mongoose = require('mongoose');
-const { isLoggedIn } = require('./middlewares/isLoggedIn');
+const { isLoggedIn } = require('./middlewares/auth');
 const path = require('path');
 
 const userRoutes = require('./routes/user');
@@ -27,5 +26,5 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', userRoutes);
-app.use('/api/sauces', sauceRoutes);
+app.use('/api/sauces', isLoggedIn, sauceRoutes);
 module.exports = app;
