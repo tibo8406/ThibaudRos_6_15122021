@@ -1,6 +1,6 @@
-const { getDefaultSettings } = require('http2');
 const multer = require('multer');
 const path = require('path');
+const moment = require('moment');
 
 
 const MIME_TYPES = {
@@ -17,11 +17,9 @@ const storage = multer.diskStorage({
         const originalNameWithoutSpaces = file.originalname.split(' ').join('_');
         const filename = path.parse(originalNameWithoutSpaces).name;
         const extension = MIME_TYPES[file.mimetype];
-        let date = new Date();
-        console.log(date);
+        const date = moment();
         ///callback(null, filename + '_' + Date.now() + '.' + extension)
-        callback(null, date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + date.getMinutes() + date.getSeconds() + '_' + filename + '.' + extension)
-
+        callback(null, date.format(`YYYY-MM-DD_HH-mm-ss_[${filename}.${extension}]`))
     }
 });
 

@@ -44,9 +44,9 @@ exports.deleteOneSauce = (req, res, next) => {
 };
 
 exports.showOneSauce = (req, res, next) => {
-    Sauce.findOne({ _id: req.params.id })
-        .then(sauce => res.status(200).json(sauce))
-        .catch(error => res.status(400).json({ error }));
+
+    res.status(200).json(req.sauce)
+
 };
 exports.showAllSauces = (req, res, next) => {
     Sauce.find()
@@ -54,51 +54,42 @@ exports.showAllSauces = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 exports.likeSauce = (req, res, next) => {
+    const sauce = req.sauce;
     if (req.body.like === 1) {
-        Sauce.findOne({ _id: req.params.id })
-            .then(sauce => {
-                if (!sauce.usersLiked.includes(req.body.userId)) {
-                    sauce.likes += 1;
-                    sauce.usersLiked.push(req.body.userId);
-                    sauce.save()
-                        .then(() => res.status(201).json({ message: 'Vous avez liké cette sauce !' }))
-                        .catch(error => res.status(400).json({ error }));
-                }
-            })
-            .catch(error => res.status(400).json({ error }));
-
+        if (sauce.usersLiked.includes(req.token.userId)) {
+            return res.status(403).json({ message: 'Vous ne pouves pas liker deux fois la même sauce ;)' })
+        }
+        if (sauce.usersDisliked.includes(req.token.userId)) {
+            let index = sauce.usersDisliked.indexOf(req.body.userId);
+            sauce.usersDisliked.splice(index, 1);
+        }
+        sauce.usersLiked.push(req.token.userId);
     }
+
     if (req.body.like === -1) {
-        Sauce.findOne({ _id: req.params.id })
-            .then(sauce => {
-                if (!sauce.usersDisliked.includes(req.body.userId)) {
-                    sauce.dislikes += 1;
-                    sauce.usersDisliked.push(req.body.userId);
-                    sauce.save()
-                        .then(() => res.status(201).json({ message: 'Vous avez disliké cette sauce !' }))
-                        .catch(error => res.status(400).json({ error }));
-                }
-            })
-            .catch(error => res.status(400).json({ error }));
+        if (sauce.usersDisliked.includes(req.token.userId)) {
+            return res.status(403).json({ message: 'Vous ne pouves pas disliker deux fois la même sauce ;)' })
+        }
+        if (sauce.usersLiked.includes(req.token.userId)) {
+            let index = sauce.usersLiked.indexOf(req.token.userId);
+            sauce.usersLiked.splice(index, 1);
+        }
+
+        sauce.usersDisliked.push(req.token.userId);
+
     }
     if (req.body.like === 0) {
-        Sauce.findOne({ _id: req.params.id })
-            .then(sauce => {
-                if (sauce.usersDisliked.includes(req.body.userId)) {
-                    let index = sauce.usersDisliked.indexOf(req.body.userId);
-                    sauce.usersDisliked.splice(index, 1);
-                    sauce.dislikes += -1;
-                }
-                if (sauce.usersLiked.includes(req.body.userId)) {
-                    let index = sauce.usersLiked.indexOf(req.body.userId);
-                    sauce.usersLiked.splice(index, 1);
-                    sauce.likes += -1;
-                }
-                sauce.save()
-                    .then(() => res.status(201).json({ message: 'Vous avez annulé votre notation !' }))
-                    .catch(error => res.status(400).json({ error }));
-            })
-            .catch(error => res.status(400).json({ error }));
+        if (sauce.usersDisliked.includes(req.token.userId)) {
+            let index = sauce.usersDisliked.indexOf(req.body.userId);
+            sauce.usersDisliked.splice(index, 1);
+        } else if (sauce.usersLiked.includes(req.token.userId)) {
+            let index = sauce.usersLiked.indexOf(req.token.userId);
+            sauce.usersLiked.splice(index, 1);
+        }
     }
-
+    sauce.likes = sauce.usersLiked.length;
+    sauce.dislikes = sauce.usersDisliked.length;
+    sauce.save()
+        .then(() => res.status(201).json({ message: "success" }))
+        .catch(error => res.status(400).json({ error }));
 };
