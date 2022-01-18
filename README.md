@@ -1,23 +1,21 @@
-# ThibaudRos_6_15122021
-<h1>Repo P6 Openclassrooms : Piiquante<h1>
+<h1>Repo P6 Openclassrooms : Piiquante</h1>
 
-Pré-requis
+<h2>Pré-requis</h2>
 
-Création d'un fichier .env dans le dossier backend contenant les variables suivante
-PORT           / numero utiliser par l'API
-TOKEN_SECRET   / Phrase clé pour le token d'authentification 
-DB_URL         / Url de la basse de donnée
-
-
-Installation
-
-Cloner le repo
-Se positionner dans le Web-Developper-P6
-Executez la commande npm install
+Création d'un fichier .env dans le dossier backend contenant les variables suivantes : <br><br>
+PORT           / <em>numero utiliser par l'API</em><br>
+TOKEN_SECRET   / <em>Phrase clé pour le token d'authentification</em><br>
+DB_URL         / <em>Url de la basse de donnée</em><br>
 
 
+<h2>Installation</h2>
 
+Cloner le repo <code>git clone https://github.com/tibo8406/ThibaudRos_6_15122021.git</code><br>
+Se positionner dans le Web-Developper-P6 <code>cd Web-Developper-P6/</code><br>
+Executez la commande <code>npm install</code><br>
 
-Démarrage
-Se positionner dans le dossier backend
-Executer la commande npm start
+<h2>Démarrage</h2>
+
+Revenir à la racine <code>cd ..</code><br>
+Se positionner dans le dossier backend <code>cd backend/</code><br>
+Executer la commande <code>npm start</code><br>
