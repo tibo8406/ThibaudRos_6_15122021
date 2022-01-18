@@ -11,11 +11,9 @@ DB_URL         / <em>Url de la basse de donnée</em><br>
 <h2>Installation</h2>
 
 Cloner le repo <code>git clone https://github.com/tibo8406/ThibaudRos_6_15122021.git</code><br>
-Se positionner dans le Web-Developper-P6 <code>cd Web-Developper-P6/</code><br>
+Se positionner dans le dossier backend <code>cd backend/</code><br>
 Executez la commande <code>npm install</code><br>
 
 <h2>Démarrage</h2>
 
-Revenir à la racine <code>cd ..</code><br>
-Se positionner dans le dossier backend <code>cd backend/</code><br>
 Executer la commande <code>npm start</code><br>
