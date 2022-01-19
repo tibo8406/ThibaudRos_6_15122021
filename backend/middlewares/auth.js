@@ -16,12 +16,16 @@ exports.isLoggedIn = (req, res, next) => {
 }
 
 exports.isOwner = (req, res, next) => {
-    if (sauce.userId !== req.token.userId) {
-        return res.status(401).json({
-            error: new Error('Requete non autorisée !')
-        });
-    }
-    next();
+    Sauce.findOne({ _id: req.params.id }).then(
+        (sauce) => {
+            if (sauce.userId !== req.token.userId) {
+                return res.status(401).json({
+                    error: new Error('Requete non autorisée !')
+                });
+            }
+            next();
+        }
+    );
 }
 
 exports.loadSauce = (req, res, next) => {
